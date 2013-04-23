@@ -2,13 +2,11 @@ require 'net/http'
 require 'net/https'
 require 'uri'
 
-unless defined?(ActiveSupport::JSON)
-  begin
-    require 'rubygems' # for Ruby 1.8
-    require 'json'
-  rescue LoadError
-    raise LoadError, "Please install the 'json' or 'json_pure' gem to parse geocoder results."
-  end
+begin
+  require 'rubygems' # for Ruby 1.8
+  require '2'
+rescue LoadError
+  raise LoadError, "Please install the 'json' or 'json_pure' gem to parse geocoder results."
 end
 
 module Geocoder
@@ -72,7 +70,7 @@ module Geocoder
       def query_url(query)
         fail
       end
-      
+
       ##
       # The working Cache object.
       #
@@ -175,11 +173,7 @@ module Geocoder
       # Parses a raw search result (returns hash or array).
       #
       def parse_raw_data(raw_data)
-        if defined?(ActiveSupport::JSON)
-          ActiveSupport::JSON.decode(raw_data)
-        else
-          JSON.parse(raw_data)
-        end
+        JSON.parse(raw_data)
       rescue
         warn "Geocoding API's response was not valid JSON."
       end
