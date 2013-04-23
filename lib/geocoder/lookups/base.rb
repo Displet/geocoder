@@ -3,8 +3,8 @@ require 'net/https'
 require 'uri'
 
 begin
-  require 'rubygems' # for Ruby 1.8
-  require '2'
+  # require 'rubygems' # for Ruby 1.8
+  require 'json'
 rescue LoadError
   raise LoadError, "Please install the 'json' or 'json_pure' gem to parse geocoder results."
 end
